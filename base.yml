@@ -1,0 +1,10 @@
+
+- name: Install base packages
+  hosts: mylede
+  gather_facts: no
+  tasks:
+    - name: install light python
+      raw: uptime
+  #      raw: opkg install python-light python-codecs python-logging python-openssl
+    - name: test
+      raw: ping -c 4 google.com
