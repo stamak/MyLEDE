@@ -1,10 +1,11 @@
 
 - name: Install base packages
-  hosts: mylede
+  hosts: lede
   gather_facts: no
   tasks:
-    - name: install light python
-      raw: uptime
-  #      raw: opkg install python-light python-codecs python-logging python-openssl
-    - name: test
-      raw: ping -c 4 google.com
+    - name: install Ukrainian
+      raw: opkg install luci-i18n-base-uk
+    - name: light python
+      raw: opkg install python-light python-codecs python-logging python-openssl
+  #- name: test
+  #    raw: ping -c 4 google.com
