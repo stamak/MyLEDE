@@ -4,7 +4,14 @@
   gather_facts: no
   tasks:
     - name: install storage packages
-      raw: opkg install kmod-usb-storage kmod-scsi-core kmod-fs-ext4 e2fsprogs block-mount
+      action: >
+        opkg name={{ item }} state=present update_cache=yes
+      with_items:
+        - kmod-usb-storage
+        - kmod-scsi-core
+        - kmod-fs-ext4
+        - e2fsprogs
+        - block-mount
     - name: create dir 1
       file:
         path: /storage/1
@@ -19,10 +26,10 @@
       raw: /sbin/block mount
     - name: copy wait4mount file
       copy: src=files/wait4mount dest=/etc/init.d/wait4mount owner=root mode=0751
-    - name: enable wait4mount
-      raw: /etc/init.d/wait4mount enable
+      #- name: enable wait4mount
+      #raw: /etc/init.d/wait4mount enable
     - name: install SAMBA
-      raw: opkg install samba36-server
+      opkg: name=samba36-server state=present
     - name: copy samba file
       copy: src=files/samba dest=/etc/config/samba owner=root mode=0640
       notify: enable and start samba
