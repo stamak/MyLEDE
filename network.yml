@@ -3,16 +3,17 @@
   hosts: lede
   gather_facts: no
   tasks:
-    - name: install ddns packages
-      action: >
-        opkg name={{ item }} state=present update_cache=yes
+    - name: install network related packages
+      opkg: name={{ item }} state=present force=overwrite update_cache=yes
       with_items:
         - ddns-scripts
         - ddns-scripts_no-ip_com
+        - openvpn-mbedtls
+        - socat
 #    - name: copy ddns file
 #      copy: src=files/ddns dest=/etc/config/ddns owner=root mode=0640
-#      notify: enable and start ddns
+      notify: enable and start ddns
 
   handlers:
     - name: enable and start ddns
-      raw: /etc/init.d/ddns restart && /etc/init.d/ddns enable
+      shell: SRV=ddns; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable
