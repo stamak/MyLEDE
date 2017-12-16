@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: light python
-      raw: opkg install python-light python-codecs python-logging python-openssl
+      raw: opkg update; opkg install python-light python-codecs python-logging python-openssl
     - name: install Ukrainian
       opkg: name=luci-i18n-base-uk state=present
   #- name: test
