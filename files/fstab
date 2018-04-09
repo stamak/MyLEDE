@@ -20,3 +20,10 @@ config mount
 	option fstype 'ext4'
 	option options 'rw,sync'
 	option enabled '1'
+
+config mount
+	option target '/storage/3'
+	option uuid '688e1e3b-8b76-49d5-bb20-83ef07960270'
+	option fstype 'ext4'
+	option options 'rw,sync'
+	option enabled '1'
