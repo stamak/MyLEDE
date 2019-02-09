@@ -8,8 +8,9 @@
       with_items:
         - ddns-scripts
         - ddns-scripts_no-ip_com
-        - openvpn-mbedtls
+        - openvpn-openssl
         - socat
+        - 6in4
 #    - name: copy ddns file
 #      copy: src=files/ddns dest=/etc/config/ddns owner=root mode=0640
       notify: enable and start ddns
