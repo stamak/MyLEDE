@@ -6,11 +6,12 @@
     - name: install network related packages
       opkg: name={{ item }} state=present force=overwrite update_cache=yes
       with_items:
+        - 6in4
         - ddns-scripts
         - ddns-scripts_no-ip_com
         - openvpn-openssl
         - socat
-        - 6in4
+        - tmux
 #    - name: copy ddns file
 #      copy: src=files/ddns dest=/etc/config/ddns owner=root mode=0640
       notify: enable and start ddns
