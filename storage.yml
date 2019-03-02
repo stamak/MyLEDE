@@ -11,6 +11,7 @@
         - kmod-fs-ext4
         - e2fsprogs
         - block-mount
+        - rsync
     - name: create dir 1
       file:
         path: /storage/1
@@ -38,10 +39,12 @@
     - name: install transmission packages
       opkg: name={{ item }} state=present update_cache=yes
       with_items:
-        - transmission-daemon-mbedtls
+        - transmission-daemon-openssl
         - transmission-web
       notify:
         - enable and start transmission
+    - name: copy hotplug file
+      copy: src=files/hotplug_block_99-restart dest=/etc/hotplug.d/block/99-restart owner=root mode=0640
 
   handlers:
     - name: enable wait4mount

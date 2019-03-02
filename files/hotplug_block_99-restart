@@ -1,0 +1,5 @@
+if [ "$ACTION" = "add" ]; then
+   sleep 30
+   /etc/init.d/transmission restart
+   /etc/init.d/samba restart
+fi
