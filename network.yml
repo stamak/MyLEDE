@@ -12,6 +12,7 @@
         - openvpn-openssl
         - socat
         - tmux
+        - tcpdump
 #    - name: copy ddns file
 #      copy: src=files/ddns dest=/etc/config/ddns owner=root mode=0640
       notify: enable and start ddns
