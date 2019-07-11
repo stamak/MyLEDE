@@ -45,6 +45,11 @@
         - enable and start transmission
     - name: copy hotplug file
       copy: src=files/hotplug_block_99-restart dest=/etc/hotplug.d/block/99-restart owner=root mode=0640
+    - name: install Minidlna
+      opkg: name=minidlna state=present
+    - name: copy Minidlna confi file
+      copy: src=files/minidlna dest=/etc/config/minidlna owner=root mode=0640
+      notify: enable and start Minidlna
 
   handlers:
     - name: enable wait4mount
@@ -53,3 +58,5 @@
       shell: SRV=samba; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable; /etc/init.d/$SRV restart
     - name: enable and start transmission
       shell: SRV=transmission; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable; /etc/init.d/$SRV restart
+    - name: enable and start Minidlna
+      shell: SRV=minidlna; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable; /etc/init.d/$SRV restart
