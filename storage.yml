@@ -47,39 +47,19 @@
       copy: src=files/hotplug_block_99-restart dest=/etc/hotplug.d/block/99-restart owner=root mode=0640
     - name: install Minidlna
       opkg: name=minidlna state=present
-    - name: create DLNA dir
-      file:
-        path: /storage/DLNA
-        state: directory
-      tags:
-        - dirs
-    - name: create symlink storage 1
-      file:
-        path: /storage/DLNA/Downloads1
-        src: /storage/1/downloads
-        state: link
-      tags:
-        - dirs
-      notify: enable and start Minidlna
-    - name: create symlink storage 2
-      file:
-        path: /storage/DLNA/Downloads2
-        src: /storage/2/downloads
-        state: link
-      tags:
-        - dirs
-      notify: enable and start Minidlna
-    - name: create symlink storage 3
-      file:
-        path: /storage/DLNA/Downloads3
-        src: /storage/3/downloads
-        state: link
-      tags:
-        - dirs
-      notify: enable and start Minidlna
     - name: copy Minidlna confi file
       copy: src=files/minidlna dest=/etc/config/minidlna owner=root mode=0640
-      notify: enable and start Minidlna
+      notify: Reload Minidlna
+      tags:
+        - minidlna
+    - name: Minidlna service
+      openwrt_init:
+        name: minidlna
+        state: started
+        pattern: minidlna
+        enabled: yes
+      tags:
+        - minidlna
 
   handlers:
     - name: enable wait4mount
@@ -88,5 +68,9 @@
       shell: SRV=samba; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable; /etc/init.d/$SRV restart
     - name: enable and start transmission
       shell: SRV=transmission; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable; /etc/init.d/$SRV restart
-    - name: enable and start Minidlna
-      shell: SRV=minidlna; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable; /etc/init.d/$SRV restart
+    - name: Reload Minidlna
+      openwrt_init:
+        name: minidlna
+        state: reloaded
+        pattern: minidlna
+

@@ -1,0 +1,12 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+route add -net 172.16.0.0/24 gw 10.9.0.2
+route add -net 10.0.0.0/8 gw 10.9.0.2
+#socat TCP-LISTEN:34433,fork TCP:10.9.0.2:22 &
+
+# Put 5G WLAN interrupts on CPU1
+# To find out interrupts run 'cat /sys/kernel/debug/ieee80211/phy0/mwlwifi/info'
+echo 2 > /proc/irq/48/smp_affinity
+
+exit 0

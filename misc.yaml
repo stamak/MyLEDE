@@ -1,0 +1,10 @@
+- name: Install and configure other services
+  hosts: lede
+  gather_facts: no
+  tasks:
+    - name: install other packages
+      opkg: name={{ item }} state=present update_cache=yes
+      with_items:
+        - mjpg-streamer
+    - name: Copy rc.local file
+      copy: src=files/rc.local dest=/etc/rc.local owner=root mode=0640
