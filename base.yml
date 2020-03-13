@@ -4,8 +4,10 @@
   gather_facts: no
   tasks:
     - name: light python
-      raw: opkg update; opkg install python-light python-codecs python-logging python-openssl
-    - name: install Ukrainian
-      opkg: name=luci-i18n-base-uk state=present
-  #- name: test
-  #    raw: ping -c 4 google.com
+      raw: which python || (opkg update; opkg install python-light python-codecs python-logging python-openssl)
+    - name: install base packages
+      opkg: name={{ item }} state=present force=overwrite update_cache=yes
+      with_items:
+        - luci-i18n-base-uk
+        - tmux
+        - htop

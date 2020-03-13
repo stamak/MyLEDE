@@ -2,9 +2,24 @@
   hosts: lede
   gather_facts: no
   tasks:
-    - name: install other packages
-      opkg: name={{ item }} state=present update_cache=yes
+    - name: Install UVC driver
+      opkg: name={{ item }} state=present force=overwrite update_cache=yes
       with_items:
+        - kmod-video-uvc
         - mjpg-streamer
+      notify: Reload mjpg-streamer
+    - name: mjpg-streamer service
+      openwrt_init:
+        name: mjpg-streamer
+        state: started
+        pattern: minidlna
+        enabled: yes
     - name: Copy rc.local file
       copy: src=files/rc.local dest=/etc/rc.local owner=root mode=0640
+
+  handlers:
+    - name: Reload mjpg-streamer
+      openwrt_init:
+        name: mjpg-streamer
+        state: reloaded
+        pattern: minidlna
