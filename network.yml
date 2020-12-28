@@ -13,10 +13,23 @@
         - socat
         - tmux
         - tcpdump
+        - snmpd
+        - iputils-arping # required by snmpd_extend.sh
 #    - name: copy ddns file
 #      copy: src=files/ddns dest=/etc/config/ddns owner=root mode=0640
       notify: enable and start ddns
+    - name: copy snmpd file
+      copy: src=files/snmpd dest=/etc/config/snmpd owner=root mode=0640
+      notify: Reload SNMPD
+    - name: copy snmpd_extend file # requires iputils-arping package
+      copy: src=files/snmpd_extend.sh dest=/etc/config/snmpd_extend.sh owner=root mode=0755
+      notify: Reload SNMPD
 
   handlers:
     - name: enable and start ddns
       shell: SRV=ddns; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable
+    - name: Reload SNMPD
+      openwrt_init:
+        name: snmpd
+        state: reloaded
+        pattern: snmpd
