@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: light python
-      raw: which python || (opkg update; opkg install python-light python-codecs python-logging python-openssl)
+      raw: which python || (opkg update; opkg install python3-light python3-codecs python3-logging python3-openssl)
     - name: install base packages
       opkg: name={{ item }} state=present force=overwrite update_cache=yes
       with_items:

@@ -6,13 +6,16 @@
       opkg: name={{ item }} state=present force=overwrite update_cache=yes
       with_items:
         - kmod-video-uvc
+        - kmod-video-core
         - mjpg-streamer
+        - mjpg-streamer-input-uvc
+        - mjpg-streamer-output-http
       notify: Reload mjpg-streamer
     - name: mjpg-streamer service
       openwrt_init:
         name: mjpg-streamer
         state: started
-        pattern: minidlna
+        pattern: mjpg_streamer
         enabled: yes
     - name: Copy rc.local file
       copy: src=files/rc.local dest=/etc/rc.local owner=root mode=0640
@@ -22,4 +25,4 @@
       openwrt_init:
         name: mjpg-streamer
         state: reloaded
-        pattern: minidlna
+        pattern: mjpg_streamer

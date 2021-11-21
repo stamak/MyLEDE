@@ -8,22 +8,37 @@
       with_items:
         - 6in4
         - ddns-scripts
-        - ddns-scripts_no-ip_com
+#        - ddns-scripts_no-ip_com
         - openvpn-openssl
         - socat
         - tmux
         - tcpdump
         - snmpd
         - iputils-arping # required by snmpd_extend.sh
+        # Balance interrupts, especially WiFi 5Ghz
+        # To find out interrupts run 'cat /sys/kernel/debug/ieee80211/phy0/mwlwifi/info'
+        - irqbalance
+      notify: Reload irqbalance
 #    - name: copy ddns file
 #      copy: src=files/ddns dest=/etc/config/ddns owner=root mode=0640
-      notify: enable and start ddns
+#      notify: enable and start ddns
     - name: copy snmpd file
       copy: src=files/snmpd dest=/etc/config/snmpd owner=root mode=0640
       notify: Reload SNMPD
     - name: copy snmpd_extend file # requires iputils-arping package
       copy: src=files/snmpd_extend.sh dest=/etc/config/snmpd_extend.sh owner=root mode=0755
       notify: Reload SNMPD
+    - name: irqbalance service
+      openwrt_init:
+        name: irqbalance
+        state: started
+        pattern: irqbalance
+        enabled: yes
+      notify: Reload irqbalance
+    - name: Copy irqbalance file
+      copy: src=files/irqbalance dest=/etc/config/irqbalance owner=root mode=0640
+      notify: Reload irqbalance
+
 
   handlers:
     - name: enable and start ddns
@@ -33,3 +48,8 @@
         name: snmpd
         state: reloaded
         pattern: snmpd
+    - name: Reload irqbalance
+      openwrt_init:
+        name: irqbalance
+        state: reloaded
+        pattern: irqbalance

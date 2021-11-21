@@ -31,15 +31,15 @@
     - name: copy wait4mount file
       copy: src=files/wait4mount dest=/etc/init.d/wait4mount owner=root mode=0751
       notify: enable wait4mount
-    - name: install SAMBA
-      opkg: name=samba36-server state=present
-    - name: copy samba file
-      copy: src=files/samba dest=/etc/config/samba owner=root mode=0640
-      notify: enable and start samba
+#    - name: install SAMBA
+#      opkg: name=samba36-server state=present
+#    - name: copy samba file
+#      copy: src=files/samba dest=/etc/config/samba owner=root mode=0640
+#      notify: enable and start samba
     - name: install transmission packages
       opkg: name={{ item }} state=present update_cache=yes
       with_items:
-        - transmission-daemon-openssl
+        - transmission-daemon
         - transmission-web
       notify:
         - enable and start transmission
@@ -64,8 +64,8 @@
   handlers:
     - name: enable wait4mount
       shell: SRV=wait4mount; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable
-    - name: enable and start samba
-      shell: SRV=samba; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable; /etc/init.d/$SRV restart
+#    - name: enable and start samba
+#      shell: SRV=samba; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable; /etc/init.d/$SRV restart
     - name: enable and start transmission
       shell: SRV=transmission; ls /etc/rc.d/ | grep -q $SRV || /etc/init.d/$SRV enable; /etc/init.d/$SRV restart
     - name: Reload Minidlna
