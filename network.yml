@@ -37,7 +37,8 @@
       notify: Reload irqbalance
     - name: Copy irqbalance file
       copy: src=files/irqbalance dest=/etc/config/irqbalance owner=root mode=0640
-      notify: Reload irqbalance
+    - name: copy no-net-reboot.sh script
+      copy: src=files/no-net-reboot.sh dest=/etc/config/no-net-reboot.sh owner=root mode=0750
 
 
   handlers:
