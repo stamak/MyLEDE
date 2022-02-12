@@ -15,6 +15,7 @@
         - tcpdump
         - snmpd
         - iputils-arping # required by snmpd_extend.sh
+        - libustream-openssl20150806
 #    - name: copy ddns file
 #      copy: src=files/ddns dest=/etc/config/ddns owner=root mode=0640
       notify: enable and start ddns
