@@ -1,0 +1,10 @@
+--- /etc/init.d/transmission_original	2022-04-30 09:33:09.000000000 +0300
++++ /etc/init.d/transmission	2022-04-30 09:33:09.000000000 +0300
+@@ -160,6 +160,7 @@
+ 	procd_add_jail_mount_rw "$config_dir/blocklists"
+ 	procd_add_jail_mount_rw "$config_dir/stats.json"
+ 	procd_add_jail_mount_rw "$download_dir"
++	procd_add_jail_mount_rw "/storage/1/Downloads1"
+ 	[ -d "$web_home" ] && procd_add_jail_mount_rw "$web_home"
+ 	procd_close_instance
+ }

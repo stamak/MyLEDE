@@ -1,6 +1,11 @@
 # Put your custom commands here that should be executed once
 # the system init finished. By default this file does nothing.
 
+# Manually balance(instead of irqbalance)
+# Make 5GHz WiFi irq be hadled by 2d CPU.
+# https://forum.openwrt.org/t/users-needed-to-test-wi-fi-stability-on-linksys-wrt3200acm-wrt32x-on-openwrt-21-02/101700/799
+echo 2 > /proc/irq/73/smp_affinity
+
 # Reboot if no the internet connection
 /etc/config/no-net-reboot.sh &
 

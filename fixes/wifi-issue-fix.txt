@@ -1,0 +1,20 @@
+1. Disale irqbalance https://forum.openwrt.org/t/users-needed-to-test-wi-fi-stability-on-linksys-wrt3200acm-wrt32x-on-openwrt-21-02/101700/799
+   in file /proc/irq/73/smp_affinity
+   add next line "echo 2 > /proc/irq/73/smp_affinity" to /etc/rc.local file
+2. Disable asmdu https://forum.openwrt.org/t/wrt1900acs-v1-hangs-frequently-on-openwrt-21-02-0-rc3/102259
+   echo "0" >> /sys/kernel/debug/ieee80211/phy0/mwlwifi/tx_amsdu && \
+   echo "0" >> /sys/kernel/debug/ieee80211/phy1/mwlwifi/tx_amsdu && \
+   logger "AMSDU Disabled"
+
+Errors:
+error-2704.log:Wed Apr 27 11:13:48 2022 kern.err kernel: [ 1362.451584] ieee80211 phy0: cmd 0x9122=UpdateEncryption timed out
+error-2704.log:Wed Apr 27 11:13:48 2022 kern.err kernel: [ 1362.457710] ieee80211 phy0: return code: 0x1122
+error-2704.log:Wed Apr 27 11:13:48 2022 kern.err kernel: [ 1362.462270] ieee80211 phy0: timeout: 0x1122
+error-2704.log:Wed Apr 27 11:13:48 2022 kern.err kernel: [ 1362.466470] wlan0: failed to remove key (0, xx:xx:xx:0d:53:19) from hardware (-5)
+error-2704.log:Wed Apr 27 11:14:08 2022 kern.err kernel: [ 1382.321410] ieee80211 phy0: cmd 0x9111=SetNewStation timed out
+error-2704.log:Wed Apr 27 11:14:08 2022 kern.err kernel: [ 1382.327275] ieee80211 phy0: return code: 0x1111
+error-2704.log:Wed Apr 27 11:14:08 2022 kern.err kernel: [ 1382.331835] ieee80211 phy0: timeout: 0x1111
+error.log:Thu Apr 21 10:28:45 2022 kern.err kernel: [34570.950656] ieee80211 phy0: cmd 0x9122=UpdateEncryption timed out
+error.log:Thu Apr 21 10:28:45 2022 kern.err kernel: [34570.956828] ieee80211 phy0: return code: 0x1122
+error.log:Thu Apr 21 10:28:45 2022 kern.err kernel: [34570.961414] ieee80211 phy0: timeout: 0x1122
+error.log:Thu Apr 21 10:28:45 2022 kern.err kernel: [34570.965636] wlan0: failed to remove key (0, xx:xx:xx:0b:05:df) from hardware (-5)
