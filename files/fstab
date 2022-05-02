@@ -15,13 +15,6 @@ config mount
 	option enabled '1'
 
 config mount
-	option target '/storage/2'
-	option uuid 'fa8a0e11-b0c6-4380-82be-2032eb4f7ca3'
-	option fstype 'ext4'
-	option options 'rw,sync'
-	option enabled '1'
-
-config mount
 	option target '/storage/3'
 	option uuid '688e1e3b-8b76-49d5-bb20-83ef07960270'
 	option fstype 'ext4'

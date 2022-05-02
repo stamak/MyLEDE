@@ -16,10 +16,6 @@
       file:
         path: /storage/1
         state: directory
-    - name: create dir 2
-      file:
-        path: /storage/2
-        state: directory
     - name: create dir 3
       file:
         path: /storage/3

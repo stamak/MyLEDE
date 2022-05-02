@@ -16,6 +16,5 @@ config minidlna config
 	option model_number '1'
 	option root_container 'B'
 	list media_dir '/storage/1/Downloads1'
-	list media_dir '/storage/2/Downloads2'
 	list media_dir '/storage/3/Downloads3'
 	option album_art_names 'Cover.jpg/cover.jpg/AlbumArtSmall.jpg/albumartsmall.jpg/AlbumArt.jpg/albumart.jpg/Album.jpg/album.jpg/Folder.jpg/folder.jpg/Thumb.jpg/thumb.jpg'
