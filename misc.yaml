@@ -10,6 +10,7 @@
         - mjpg-streamer
         - mjpg-streamer-input-uvc
         - mjpg-streamer-output-http
+        - wakeonlan
       notify: Reload mjpg-streamer
     - name: mjpg-streamer service
       openwrt_init:
