@@ -1,0 +1,27 @@
+# ansible-playbook -vvv --connection=local --inventory 127.0.0.1, mb-playbook.yaml
+
+- name: Install and configure storage
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Install core packages via brew casks
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+      ignore_errors: yes
+      with_items:
+        - firefox
+        - keepassxc
+        - sdformatter
+    - homebrew:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - vim
+        - tmux
+        - sops
+        - pwgen
+        - rsync
+        - htop
+        - unzip
+        - tree
