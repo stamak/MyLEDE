@@ -10,20 +10,20 @@ internet_verification() {
   status=$?
 
   if [ "$status" != 0 ] ; then
-    echo "No Internet"
+    logger "No Internet"
     INTERNET=false
   fi
 
   if [ "$INTERNET" = false ]; then
     UptimeInMinutes=$(awk '{print $0/60;}' /proc/uptime | cut -f1 -d".") 
     if [ "$UptimeInMinutes" -gt "10" ] ; then
-      echo -e "$(date)\n More then 10 mins, rebooting"
+      logger "$(date): More then 10 mins, rebooting"
       if [ ! -f ${NO_REBOOT_FILE} ]; then
         reboot
       fi
-      echo -e "File '${NO_REBOOT_FILE}' found"
+      logger "File '${NO_REBOOT_FILE}' found"
     else
-      echo "Just rebooted $UptimeInMinutes"
+      logger "Just rebooted $UptimeInMinutes"
     fi
   fi
 }
