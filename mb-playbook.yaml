@@ -23,5 +23,6 @@
         - pwgen
         - rsync
         - htop
+        - zip
         - unzip
         - tree
