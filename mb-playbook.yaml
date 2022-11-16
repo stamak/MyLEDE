@@ -19,10 +19,12 @@
       with_items:
         - vim
         - tmux
-        - sops
         - pwgen
         - rsync
         - htop
         - zip
         - unzip
         - tree
+        - sops
+        - circleci
+        - node@16 # brew link --force --overwrite node@16
