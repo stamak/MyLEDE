@@ -26,7 +26,13 @@
         - htop
         - zip
         - unzip
+        - coreutils
+        - gnu-sed
         - grep
+        - findutils
+        - gawk
+        - gnu-tar
+        - make
         - tree
         - helm
         - sops
