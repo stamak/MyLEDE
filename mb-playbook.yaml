@@ -17,6 +17,8 @@
         name: "{{ item }}"
         state: present
       with_items:
+        - bash-completion@2
+        - git
         - vim
         - tmux
         - pwgen
@@ -24,6 +26,7 @@
         - htop
         - zip
         - unzip
+        - grep
         - tree
         - helm
         - sops
