@@ -6,6 +6,7 @@
     - name: install network related packages
       opkg: name={{ item }} state=present force=overwrite update_cache=yes
       with_items:
+        - wireguard-tools
         - 6in4
         - ddns-scripts
 #        - ddns-scripts_no-ip_com
@@ -17,7 +18,7 @@
         - iputils-arping # required by snmpd_extend.sh
         # Balance interrupts, especially WiFi 5Ghz
         # To find out interrupts run 'cat /sys/kernel/debug/ieee80211/phy0/mwlwifi/info'
-        - irqbalance
+        #- irqbalance # done via rc.local
       notify: Reload irqbalance
 #    - name: copy ddns file
 #      copy: src=files/ddns dest=/etc/config/ddns owner=root mode=0640

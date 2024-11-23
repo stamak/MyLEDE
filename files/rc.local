@@ -4,15 +4,21 @@
 # Manually balance(instead of irqbalance)
 # Make 5GHz WiFi irq be hadled by 2d CPU.
 # https://forum.openwrt.org/t/users-needed-to-test-wi-fi-stability-on-linksys-wrt3200acm-wrt32x-on-openwrt-21-02/101700/799
-echo 2 > /proc/irq/73/smp_affinity
-
-# Disable AMSDU
-# https://forum.openwrt.org/t/wrt1900acs-v1-hangs-frequently-on-openwrt-21-02-0-rc3/102259
-echo 0 >> /sys/kernel/debug/ieee80211/phy0/mwlwifi/tx_amsdu
-echo 0 >> /sys/kernel/debug/ieee80211/phy1/mwlwifi/tx_amsdu
-logger "AMSDU Disabled"
+echo 2 > /proc/irq/81/smp_affinity
 
 # Reboot if no the internet connection
 /etc/config/no-net-reboot.sh &
+
+### Special routing table for routing traffic through other router
+# Add to the file /etc/iproute2/rt_tables below
+#100    it2ua
+
+ip rule add from 192.168.9.2 table it2ua
+ip rule add from 192.168.9.4 table it2ua
+ip route add default via 10.255.18.2 dev tun3 table it2ua
+
+### MQTT agent
+#source /root/mqtt-config
+#/root/mqtt-arm-linux &
 
 exit 0

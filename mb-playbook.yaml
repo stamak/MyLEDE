@@ -39,3 +39,5 @@
         - circleci
         - node@16 # brew link --force --overwrite node@16
         - warrensbox/tap/tfswitch
+        - jq
+        - wget
